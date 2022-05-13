@@ -5,8 +5,7 @@ nextflow.enable.dsl=2
 Channel.fromFilePairs(params.reads)
 	.set{raw_input_ch}
 
-Channel.fromPath(params.gtf)
-	.set{gtf}
+
 
 include {fastp} from "./modules/fastp"
 include {kallisto_index; kallisto_map} from "./modules/kallisto"
@@ -18,7 +17,7 @@ include {fastqsplit} from "./modules/splitFastq"
 workflow rnaseq{
 	take: 
 		fastq_input
-		gtf_ch
+
 			
 	main:
 		fastp(fastq_input)
@@ -38,6 +37,6 @@ workflow rnaseq{
 }
 
 workflow{
-	rnaseq(raw_input_ch, gtf)	
+	rnaseq(raw_input_ch)	
 }
 

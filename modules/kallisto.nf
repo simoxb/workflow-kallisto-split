@@ -7,7 +7,7 @@ process kallisto_index{
 
 	
 	output:
-	path("${fasta_input.baseName}.index")
+	tuple path(fasta_input), path("${fasta_input.baseName}.index")
 	
 	script:
 	"""
@@ -20,10 +20,10 @@ process kallisto_map{
 	label 'kallisto'
 	
 	input:
-	env STRANDNESS
 	tuple val(pair_id), path(reads1), path(reads2)
+	env STRANDNESS
+	tuple path(fasta), path(index)
 	path(gtf)
-	path(index)
 	
 	output:
 	tuple val(pair_id), path("${reads1.baseName}.bam"), emit: bam

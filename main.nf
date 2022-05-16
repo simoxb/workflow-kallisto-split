@@ -12,6 +12,8 @@ include {kallisto_index; kallisto_map} from "./modules/kallisto"
 include {cufflinks} from "./modules/cufflinks"
 include {check_strandedness} from "./modules/check_strandedness"
 include {fastqsplit} from "./modules/splitFastq"
+include {samtools; samtools_merge} from "./modules/samtools"
+
 
 
 workflow rnaseq{
@@ -23,17 +25,22 @@ workflow rnaseq{
 		fastp(fastq_input)
 		kallisto_index(params.transcriptome)
 		check_strandedness(fastq_input, params.gtf, params.ref_cdna)
-		
+
 		fastqsplit(fastp.out.trimmed) \
-	   		 | map { name, fastq, fastq1 -> tuple( groupKey(name, fastq.size()), fastq, fastq1 ) } \
+	  	 | map { name, fastq, fastq1 -> tuple( groupKey(name, fastq.size()), fastq, fastq1 ) } \
        	 	 | transpose() \
+       	 	 | view()        	 	 
        		 | set{ read_pairs_ch }
        		 
+
+       		check_strandedness.out.view()
+       		kallisto_index.out.view()
+       		 
+		kallisto_map(read_pairs_ch, check_strandedness.out.first(), kallisto_index.out, params.gtf)
+		samtools(kallisto_map.out.bam)
+		samtools_merge(samtools.out)
 		
-		kallisto_map(check_strandedness.out, read_pairs_ch, params.gtf, kallisto_index.out)
-		/*TODO: merge bam-files
-		
-		cufflinks(check_strandedness.out, xxx, params.gtf)*/
+		cufflinks(check_strandedness.out, samtools_merge.out, params.gtf)
 }
 
 workflow{

@@ -4,7 +4,7 @@ process cufflinks{
 	
 	input:
 	env STRANDNESS
-	path(bam)
+	tuple val(id), path(bam)
 	path(gtf)
 	
 	output:

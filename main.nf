@@ -32,10 +32,6 @@ workflow rnaseq{
        	 	 | view()        	 	 
        		 | set{ read_pairs_ch }
        		 
-
-       		check_strandedness.out.view()
-       		kallisto_index.out.view()
-       		 
 		kallisto_map(read_pairs_ch, check_strandedness.out.first(), kallisto_index.out, params.gtf)
 		samtools(kallisto_map.out.bam)
 		samtools_merge(samtools.out)

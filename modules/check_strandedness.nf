@@ -8,7 +8,7 @@ process check_strandedness{
      path(reference_cdna)
    
     output: 
-        env STRANDNESS
+        env STRANDNESS  
 
     shell:
     '''    
@@ -22,7 +22,7 @@ process check_strandedness{
           STRANDNESS="secondstrand"
     else
         STRANDNESS="error"
-    fi
+    fi  
     '''
     
   

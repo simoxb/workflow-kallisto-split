@@ -29,6 +29,6 @@ process check_strandedness{
         strandedness_2="error"
         echo "strandness cannot be determined" >> error_strandness.txt
     fi 
-    '''
+    '''   
 }
 

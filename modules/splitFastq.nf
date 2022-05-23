@@ -4,7 +4,7 @@ process fastqsplit{
     tuple val(name), path(fastq)
 
     output:
-    tuple val(name), path("*${fastq.baseName}*1*.f*q"), path("*${fastq.baseName}*2*.f*q")
+    tuple val(name), path("*${name}*1*.f*q"), path("*${name}*2*.f*q")
 
     script:
     """ 

@@ -10,6 +10,7 @@ process check_strandedness{
     output: 
         env strandedness_1, emit: kallisto
         env strandedness_2, emit: cufflinks
+        
     shell:
     '''    
     check_strandedness -g !{annotation} -r1 !{reads[0]} -r2 !{reads[1]} --transcripts !{reference_cdna} > result.txt

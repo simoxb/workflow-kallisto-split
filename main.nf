@@ -39,7 +39,7 @@ workflow rnaseq{
 
 		kallisto_map(read_pairs_ch, check_strandedness.out.kallisto.first(), kallisto_index.out, params.gtf)
 		samtools(kallisto_map.out.bam)
-		samtools_merge(samtools.out)
+		samtools_merge(samtools.out.collect())
 		
 		cufflinks(check_strandedness.out.cufflinks, samtools_merge.out, params.gtf)
 

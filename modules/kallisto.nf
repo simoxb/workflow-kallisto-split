@@ -27,10 +27,12 @@ process kallisto_map{
 	
 	output:
 	tuple val(pair_id), path("${reads1.baseName}.bam"), emit: bam
+	path ("*.tsv"), emit: tsv
 	
  	shell:
  	'''
  	kallisto quant -i !{index} -o ./ --gtf !{gtf} ${additional_params} --threads !{params.threads} !{reads1} !{reads2}
 	mv pseudoalignments.bam !{reads1.baseName}.bam
+	mv abundance.tsv !{reads1.baseName}.tsv
  	'''
 }

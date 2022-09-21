@@ -1,6 +1,7 @@
 process fastp{		
 	
 	label 'fastp'
+	publishDir params.outdir	
 	
 	input: 
 	tuple val(id), path(reads)

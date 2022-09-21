@@ -1,6 +1,7 @@
 process merge_quant {
     label 'python'
-
+    publishDir params.outdir
+    
     input:
     file out_bam
     

@@ -1,6 +1,7 @@
 process samtools {
     label 'samtools'
     
+    
     input:
     tuple val(sample_name), path(bam_file)
     
@@ -16,6 +17,7 @@ process samtools {
 
 process samtools_merge {
     label 'samtools'
+    publishDir params.outdir
 
     input:
     path(bam_files)

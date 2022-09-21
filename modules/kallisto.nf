@@ -1,7 +1,8 @@
 process kallisto_index{
 
 	label 'kallisto'
-	
+	publishDir params.outdir
+
 	input: 
 	path(fasta_input)
 
@@ -18,6 +19,7 @@ process kallisto_index{
 process kallisto_map{
 
 	label 'kallisto'
+	publishDir params.outdir
 	
 	input:
 	tuple val(pair_id), path(reads1), path(reads2)

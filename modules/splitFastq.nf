@@ -5,7 +5,7 @@ process fastqsplit{
     tuple val(name), path(fastq)
 
     output:
-    tuple val(name), path("*${name}*1*.f*q.gz"), path("*${name}*2*.f*q.gz")
+    tuple val(name), path("*${name}*1*.f*q"), path("*${name}*2*.f*q")
 
     script:
     """ 

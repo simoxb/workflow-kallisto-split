@@ -1,5 +1,6 @@
 process fastqsplit{
     
+    label 'python'    
     input: 
     tuple val(name), path(fastq)
 

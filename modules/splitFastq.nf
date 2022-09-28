@@ -9,8 +9,9 @@ process fastqsplit{
 
     shell:
     '''
-    length=$( grep -Fxc "+" !{fastq[0]} ) 
-    splitby=$((length/params.split + 1))
+    length=$(grep -Fxc "+" !{fastq[0]}) 
+    z=$((${length}/!{params.split}))
+    splitby=$((${z}+1))
     !{params.baseDir}/bin/splitFastq -i !{fastq[0]} -n ${splitby} -o !{fastq[0].getBaseName()} 
     !{params.baseDir}/bin/splitFastq -i !{fastq[1]} -n ${splitby} -o !{fastq[1].getBaseName()} 
     '''
